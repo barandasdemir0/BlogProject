@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,9 @@ namespace DataAccessLayer.Abstract
         int Delete(T p);
         T GetByID(int id);
 
-        ////🔍 Neden int var?
+        List<T> List(Expression<Func<T, bool>> where);
+
+     ////🔍 Neden int var?
         //Çünkü genellikle veritabanındaki bir kaydı tanımak için kullanılan birincil anahtar(Primary Key) tipi int olur.
         //Yani: int id → Hangi veriyi istiyoruz, onu belirtiriz.
 
