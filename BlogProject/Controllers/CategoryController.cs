@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BlogProject.Controllers
     {
         // GET: Category
         CategoryManager categoryManager = new CategoryManager();
+        Context context = new Context();
         public ActionResult Index()
         {
             var categoryValues = categoryManager.GettAll();
@@ -19,7 +21,8 @@ namespace BlogProject.Controllers
 
         public PartialViewResult BlogDetailsCategoryList()
         {
-            return PartialView();
+            var categoryValues = categoryManager.GettAll().Take(5);
+            return PartialView(categoryValues);
         }
     }
 }

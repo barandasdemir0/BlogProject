@@ -74,10 +74,10 @@ namespace BlogProject.Controllers
                 image = y.BlogImage,
                 category = y.Category.CategoryName
             }).LastOrDefault();
-            ViewBag.educationPostName = artificalPost.name;
-            ViewBag.educationPostDate = artificalPost.date;
-            ViewBag.educationPostImage = artificalPost.image;
-            ViewBag.educationPostCategory = artificalPost.category;
+            ViewBag.educationPostName = education.name;
+            ViewBag.educationPostDate = education.date;
+            ViewBag.educationPostImage = education.image;
+            ViewBag.educationPostCategory = education.category;
 
 
             var career = blogManager.GetAll().Where(x => x.CategoryID == 4).Select(y => new
@@ -101,6 +101,56 @@ namespace BlogProject.Controllers
         }
         public PartialViewResult OtherFeaturedPosts()
         {
+            var techPost = blogManager.GetAll().Where(x => x.CategoryID == 2).Select(y => new
+            {
+                name = y.BlogTitle,
+                date = y.BlogDate.ToString("dd-MMM-yyyy"),
+                image = y.BlogImage,
+                category = y.Category.CategoryName
+            }).LastOrDefault();
+            ViewBag.techPostName = techPost.name;
+            ViewBag.techPostDate = techPost.date;
+            ViewBag.techPostImage = techPost.image;
+            ViewBag.techPostCategory = techPost.category;
+
+            var artificalPost = blogManager.GetAll().Where(x => x.CategoryID == 3).Select(y => new
+            {
+                name = y.BlogTitle,
+                date = y.BlogDate.ToString("dd-MMM-yyyy"),
+                image = y.BlogImage,
+                category = y.Category.CategoryName
+            }).LastOrDefault();
+            ViewBag.artificalPostName = artificalPost.name;
+            ViewBag.artificalPostDate = artificalPost.date;
+            ViewBag.artificalPostImage = artificalPost.image;
+            ViewBag.artificalPostCategory = artificalPost.category;
+
+
+            var education = blogManager.GetAll().Where(x => x.CategoryID == 5).Select(y => new
+            {
+                name = y.BlogTitle,
+                date = y.BlogDate.ToString("dd-MMM-yyyy"),
+                image = y.BlogImage,
+                category = y.Category.CategoryName
+            }).LastOrDefault();
+            ViewBag.educationPostName = education.name;
+            ViewBag.educationPostDate = education.date;
+            ViewBag.educationPostImage = education.image;
+            ViewBag.educationPostCategory = education.category;
+
+
+            var career = blogManager.GetAll().Where(x => x.CategoryID == 4).Select(y => new
+            {
+                name = y.BlogTitle,
+                date = y.BlogDate.ToString("dd-MMM-yyyy"),
+                image = y.BlogImage,
+                category = y.Category.CategoryName
+            }).LastOrDefault();
+            ViewBag.careerPostName = career.name;
+            ViewBag.careerPostDate = career.date;
+            ViewBag.careerPostImage = career.image;
+            ViewBag.careerPostCategory = career.category;
+
             return PartialView();
         }
       
@@ -121,9 +171,19 @@ namespace BlogProject.Controllers
             var blogDetailsList = blogManager.GetBlogByID(id);
             return PartialView(blogDetailsList);
         }
-        public ActionResult BlogByCategory()
+        public ActionResult BlogByCategory(int id, int paged=1)
         {
-            return View();
+            var blogListByCategory = blogManager.GetBlogByCategory(id).ToPagedList(paged,6);
+
+            var category  = blogManager.GetBlogByCategory(id).Select(y => new
+            {
+                categoryName = y.Category.CategoryName,
+                categoryDescription = y.Category.CategoryDescription
+            }).FirstOrDefault();
+
+            ViewBag.categoryName = category.categoryName;
+            ViewBag.categoryDescription = category.categoryDescription;
+            return View(blogListByCategory);
         }
 
     }

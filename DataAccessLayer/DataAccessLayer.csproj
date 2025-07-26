@@ -65,12 +65,26 @@
     <Compile Include="Migrations\202507251658203_mig1.Designer.cs">
       <DependentUpon>202507251658203_mig1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202507260757288_mig2.cs" />
+    <Compile Include="Migrations\202507260757288_mig2.Designer.cs">
+      <DependentUpon>202507260757288_mig2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202507260903172_mig3.cs" />
+    <Compile Include="Migrations\202507260903172_mig3.Designer.cs">
+      <DependentUpon>202507260903172_mig3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202507251658203_mig1.resx">
       <DependentUpon>202507251658203_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202507260757288_mig2.resx">
+      <DependentUpon>202507260757288_mig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202507260903172_mig3.resx">
+      <DependentUpon>202507260903172_mig3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
