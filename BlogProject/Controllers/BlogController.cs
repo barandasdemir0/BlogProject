@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace BlogProject.Controllers
         // GET: Blog
 
         BlogManager blogManager = new BlogManager();
+        Context context = new Context();
         public ActionResult Index()
         {
             return View();
@@ -185,6 +187,100 @@ namespace BlogProject.Controllers
             ViewBag.categoryDescription = category.categoryDescription;
             return View(blogListByCategory);
         }
+
+        public ActionResult AdminBlogList()
+        {
+            var blogList = blogManager.GetAll();
+            return View(blogList);
+        }
+
+        #region ekle sil güncelle getir
+        [HttpGet]
+        public ActionResult AddNewBlog()
+        {
+            var categoryList = context.Categories.Select(x => new SelectListItem
+            {
+                Value = x.CategoryID.ToString(),
+                Text = x.CategoryName
+            }).ToList();
+
+            var authorList = context.Authors.Select(x => new SelectListItem
+            {
+                Value = x.AuthorID.ToString(),
+                Text = x.AuthorName
+            }).ToList();
+
+            ViewBag.categoryName = categoryList;
+            ViewBag.authorName = authorList;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddNewBlog(Blog blog)
+        {
+            blog.BlogDate = Convert.ToDateTime(DateTime.Now);
+            blogManager.BlogAddBL(blog);
+            return RedirectToAction("AdminBlogList");
+        }
+
+
+        public ActionResult DeleteBlog(int id)
+        {
+            blogManager.DeleteBlogBL(id);
+            return RedirectToAction("AdminBlogList");
+        }
+
+
+
+
+        [HttpGet]
+        public ActionResult UpdateBlog(int id)
+        {
+
+            var bilgiler = blogManager.FindBlog(id);
+            var categoryList = context.Categories.Select(x => new SelectListItem
+            {
+                Value = x.CategoryID.ToString(),
+                Text = x.CategoryName
+            }).ToList();
+
+            var authorList = context.Authors.Select(x => new SelectListItem
+            {
+                Value = x.AuthorID.ToString(),
+                Text = x.AuthorName
+            }).ToList();
+
+            ViewBag.categoryName = categoryList;
+            ViewBag.authorName = authorList;
+
+
+
+            return View(bilgiler);
+        }
+        [HttpPost]
+        public ActionResult UpdateBlog(Blog blog)
+        {
+            blog.BlogDate = Convert.ToDateTime(DateTime.Now);
+            blogManager.BlogUpdateBL(blog);
+            return RedirectToAction("AdminBlogList");
+        }
+
+
+        public ActionResult GetCommentByBlog(int id)
+        {
+            CommentManager comment = new CommentManager();
+            var commentList = comment.CommentByBlog(id);
+            return View(commentList);
+        }
+
+
+
+
+
+
+
+        #endregion
+
 
     }
 }

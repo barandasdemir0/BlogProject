@@ -1,0 +1,39 @@
+﻿@model EntityLayer.Concrete.Author
+@{
+    ViewBag.Title = "AuthorEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form class="form-group" method="post">
+    @Html.HiddenFor(x=>x.AuthorID)
+    <label>Yazar Adı</label>
+    @Html.TextBoxFor(x => x.AuthorName, new { @class = "form-control" })
+    <br />
+    <label>Resim Yolu</label>
+    @Html.TextBoxFor(x => x.AuthorImage, new { @class = "form-control" })
+    <br />
+    <label>Hakkında </label>
+    @Html.TextBoxFor(x => x.AuthorAbout, new { @class = "form-control" })
+    <br />
+    <label>Başlık </label>
+    @Html.TextBoxFor(x => x.AuthorTitle, new { @class = "form-control" })
+    <br />
+    <label>Kısa Hakkında </label>
+    @Html.TextBoxFor(x => x.AboutShort, new { @class = "form-control" })
+    <br />
+    <label>Mail </label>
+    @Html.TextBoxFor(x => x.AuthorMail, new { @class = "form-control" })
+    <br />
+    <label>Şifre </label>
+    @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+    <br />
+    <label>Telefon Numarası </label>
+    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-outline-primary">Yazarı Kaydet</button>
+</form>
+
+
+
+

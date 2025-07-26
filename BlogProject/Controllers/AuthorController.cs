@@ -1,9 +1,11 @@
 ﻿using BusinessLayer.Concrete;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebGrease;
 
 namespace BlogProject.Controllers
 {
@@ -12,6 +14,7 @@ namespace BlogProject.Controllers
         // GET: Author
 
         BlogManager blog = new BlogManager();
+        AuthorManager author = new AuthorManager();
         public PartialViewResult AuthorAbout(int id)
         {
             var authorDetails = blog.GetBlogByID(id);
@@ -23,5 +26,54 @@ namespace BlogProject.Controllers
             var authorBlogs = blog.GetBlogByAuthorID(authorId);
             return PartialView(authorBlogs);
         }
+
+        public ActionResult AuthorList()
+        {
+           var values = author.GetAll();
+            return View(values);
+        }
+
+        [HttpGet]
+        public ActionResult AddAuthor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddAuthor(Author authorAdd)
+        {
+            
+            author.AuthorAddBL(authorAdd);
+            return RedirectToAction("AuthorList");
+        
+        }
+        [HttpGet]
+        public ActionResult AuthorEdit(int id)
+        {
+            var bilgiler = author.FindAuthor(id);
+            return View(bilgiler);
+        }
+
+        [HttpPost]
+        public ActionResult AuthorEdit(Author authorUpdate)
+        {
+
+            author.AuthorUpdateBL(authorUpdate);
+            return RedirectToAction("AuthorList");
+
+        }
+
+
+  
+
+
+
+
+
+
+
+        
+
+
     }
 }

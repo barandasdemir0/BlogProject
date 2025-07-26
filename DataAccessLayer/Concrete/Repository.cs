@@ -24,6 +24,11 @@ namespace DataAccessLayer.Concrete
             return c.SaveChanges(); // değişiklikleri kaydet
         }
 
+        public T Find(Expression<Func<T, bool>> where)
+        {
+            return _object.FirstOrDefault(where);
+        }
+
         public T GetByID(int id)
         {
             return _object.Find(id);
