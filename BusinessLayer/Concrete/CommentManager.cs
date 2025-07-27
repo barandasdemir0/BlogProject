@@ -34,5 +34,35 @@ namespace BusinessLayer.Concrete
            return repoComment.Insert(c);
         }
 
+        public List<Comment> CommentByStatusTrue()
+        {
+            return repoComment.List(x => x.CommentStatus == true);
+
+        }
+
+        public List<Comment> CommentByStatusFalse()
+        {
+            return repoComment.List(x => x.CommentStatus == false);
+
+        }
+
+
+
+        public int ChangeCommentStatusToFalse(int id)
+        {
+            Comment comment = repoComment.Find(x => x.CommentID ==id);
+            comment.CommentStatus = false;
+            return repoComment.Update(comment);
+        }
+
+        public int ChangeCommentStatusToTrue(int id)
+        {
+            Comment comment = repoComment.Find(x => x.CommentID == id);
+            comment.CommentStatus = true;
+            return repoComment.Update(comment);
+        }
+
+
+
     }
 }

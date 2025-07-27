@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using EntityLayer.Concrete;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,18 @@ namespace BlogProject.Controllers
             var aboutMeetTeam = author.GetAll().Take(6);
             return PartialView(aboutMeetTeam);
         }
+
+        public ActionResult UpdateAboutList()
+        {
+            var abaoutList = about.GetAll();
+            return View(abaoutList);
+        }
+
+        public ActionResult UpdateAbout(About a)
+        {
+            about.AboutUpdateBL(a);
+            return RedirectToAction("UpdateAboutList");
+        }
+
     }
 }

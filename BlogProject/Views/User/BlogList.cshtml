@@ -1,0 +1,16 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Blog>
+@{
+    ViewBag.Title = "BlogList";
+    Layout = "~/Views/Shared/_AuthorLayout.cshtml";
+}
+
+<h2>BlogList</h2>
+
+<table>
+    <tr><th>ıd</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.BlogID</td></tr>
+    }
+
+</table>

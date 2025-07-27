@@ -1,7 +1,9 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +14,7 @@ namespace BlogProject.Controllers
     {
         // GET: Contact
         ContactManager contact = new ContactManager();
+        Context context = new Context();
         public ActionResult Index()
         {
             return View();
@@ -27,6 +30,19 @@ namespace BlogProject.Controllers
         {
             contact.BlContactAdd(c);
             return View();
+        }
+
+        public ActionResult SendBox()
+        {
+            var messageList = contact.GetAll();
+            ViewBag.veri = context.Contacts.Count();
+            return View(messageList);
+        }
+        public ActionResult MessageDetails(int id)
+        {
+            Contact c = contact.GetContactDetails(id);
+            ViewBag.veri = context.Contacts.Count();
+            return View(c);
         }
     }
 }

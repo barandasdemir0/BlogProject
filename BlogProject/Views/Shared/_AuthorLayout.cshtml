@@ -23,7 +23,7 @@
                      alt="AdminLTE Logo"
                      class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">Blog Admin</span>
+                <span class="brand-text font-weight-light">Blog Yazar</span>
             </a>
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -31,7 +31,7 @@
                         <img src="~/AdminLTE-3.0.4/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Hoşgeldin</a>
+                        <a href="#" class="d-block">@Session["Name"]</a>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -42,7 +42,7 @@
                             <a href="/Blog/AdminBlogList/" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Bloglar
+                                    Bloglarım
                                 </p>
                             </a>
                         </li>
@@ -56,14 +56,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/Author/AuthorList/" class="nav-link">
-                                <i class="nav-icon fas fa-people-arrows"></i>
-                                <p>
-                                    Yazarlar
-                                </p>
-                            </a>
-                        </li>
+
 
 
 
@@ -91,51 +84,11 @@
 
                             </ul>
                         </li>
-
-
-
-
-                        <li class="nav-item">
-                            <a href="/Category/AdminCategoryList/" class="nav-link">
-                                <i class="nav-icon fas fa-box-open"></i>
-                                <p>
-                                    Kategoriler
-                                </p>
-                            </a>
-                        </li>
-
                         <li class="nav-item">
                             <a href="../widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-address-book"></i>
+                                <i class="nav-icon fas fa-user"></i>
                                 <p>
-                                    Hakkımızda
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="/Contact/SendBox/" class="nav-link">
-                                <i class="nav-icon fas fa-phone"></i>
-                                <p>
-                                    İletişim
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="../widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Grafikler
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="../widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-info"></i>
-                                <p>
-                                    Yetkilendirme
+                                    Profilimi Düzenle
                                 </p>
                             </a>
                         </li>
@@ -155,8 +108,8 @@
         </aside>
         <div class="content-wrapper">
             <section class="content-header">
-                <div class="container-fluid">                         
-                            @RenderBody()           
+                <div class="container-fluid">
+                    @RenderBody()
                 </div>
             </section>
         </div>
@@ -169,6 +122,3 @@
     <script src="~/AdminLTE-3.0.4/dist/js/demo.js"></script>
 </body>
 </html>
-
-
-

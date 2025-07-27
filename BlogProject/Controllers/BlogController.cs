@@ -194,6 +194,13 @@ namespace BlogProject.Controllers
             return View(blogList);
         }
 
+
+        public ActionResult AdminBlogList2()
+        {
+            var blogList = blogManager.GetAll();
+            return View(blogList);
+        }
+
         #region ekle sil güncelle getir
         [HttpGet]
         public ActionResult AddNewBlog()
@@ -220,14 +227,14 @@ namespace BlogProject.Controllers
         {
             blog.BlogDate = Convert.ToDateTime(DateTime.Now);
             blogManager.BlogAddBL(blog);
-            return RedirectToAction("AdminBlogList");
+            return RedirectToAction("AdminBlogList2");
         }
 
 
         public ActionResult DeleteBlog(int id)
         {
             blogManager.DeleteBlogBL(id);
-            return RedirectToAction("AdminBlogList");
+            return RedirectToAction("AdminBlogList2");
         }
 
 
@@ -262,7 +269,7 @@ namespace BlogProject.Controllers
         {
             blog.BlogDate = Convert.ToDateTime(DateTime.Now);
             blogManager.BlogUpdateBL(blog);
-            return RedirectToAction("AdminBlogList");
+            return RedirectToAction("AdminBlogList2");
         }
 
 
