@@ -15,22 +15,32 @@ namespace BlogProject.Controllers
         // GET: Contact
         ContactManager contact = new ContactManager();
         Context context = new Context();
+
+
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
+
+
+        [AllowAnonymous]
 
         [HttpGet]
         public ActionResult SendMessage()
         {
             return View();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult SendMessage(Contact c)
         {
             contact.BlContactAdd(c);
             return View();
         }
+
+
 
         public ActionResult SendBox()
         {

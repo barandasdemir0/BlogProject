@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BlogProject.Controllers
 {
+    [AllowAnonymous]
     public class AboutController : Controller
     {
         // GET: About
@@ -20,6 +21,7 @@ namespace BlogProject.Controllers
             var aboutContent = about.GetAll();
             return View(aboutContent);
         }
+
         public PartialViewResult Footer()
         {
             var aboutContentList = about.GetAll().Take(1);

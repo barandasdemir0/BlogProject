@@ -2,127 +2,136 @@
 
 <div class="tab-pane" id="settings">
 
-    @foreach (var item in Model)
+
+
+
+
+    @using (Html.BeginForm("UpdateUserProfile", "User", FormMethod.Post))
     {
+        foreach (var item in Model)
+        {
 
 
 
-    <form class="form-horizontal">
+            <form class="form-horizontal">
 
 
 
+                <input type="hidden" name="AuthorID" class="form-control" Value="@item.AuthorID ">
 
 
 
 
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Ad Soyad</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Ad Soyad</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="AuthorName" class="form-control" Value="@item.AuthorName ">
 
-                <input type="text" name="AuthorName" class="form-control"  Value="@item.AuthorName ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
 
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Resim</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Resim</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="AuthorImage" class="form-control" Value="@item.AuthorImage ">
 
-                <input type="text" name="AuthorImage" class="form-control"  Value="@item.AuthorImage ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Hakkında</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Hakkında</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="AuthorAbout" class="form-control" Value="@item.AuthorAbout ">
 
-                <input type="text" name="AuthorAbout" class="form-control"  Value="@item.AuthorAbout ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Başlık</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Başlık</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="AuthorTitle" class="form-control" Value="@item.AuthorTitle ">
 
-                <input type="text" name="AuthorTitle" class="form-control"  Value="@item.AuthorTitle ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Kısa Hakkında</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Kısa Hakkında</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="AboutShort" class="form-control" Value="@item.AboutShort ">
 
-                <input type="text" name="AboutShort" class="form-control"  Value="@item.AboutShort ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Mail</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Mail</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="AuthorMail" class="form-control" Value="@item.AuthorMail ">
 
-                <input type="text" name="AuthorMail" class="form-control"  Value="@item.AuthorMail ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Şifre</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Şifre</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="Password" class="form-control" Value="@item.Password ">
 
-                <input type="text" name="Password" class="form-control"  Value="@item.Password ">
+                    </div>
 
-            </div>
+                </div>
+                <div class="form-group row">
 
-        </div>
-        <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
 
-            <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
+                    <div class="col-sm-10">
 
-            <div class="col-sm-10">
+                        <input type="text" name="PhoneNumber" class="form-control" Value="@item.PhoneNumber ">
 
-                <input type="text" name="PhoneNumber" class="form-control"  Value="@item.PhoneNumber ">
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
 
+                <div class="form-group row">
 
-        <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
 
-            <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-outline-secondary">Güncelle</button>
 
-                <button type="submit" class="btn btn-outline-secondary">Güncelle</button>
+                    </div>
 
-            </div>
+                </div>
 
-        </div>
-
-    </form>
+            </form>
+        }
     }
+
+
 </div>

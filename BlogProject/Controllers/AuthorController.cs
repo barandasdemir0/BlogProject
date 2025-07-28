@@ -15,17 +15,22 @@ namespace BlogProject.Controllers
 
         BlogManager blog = new BlogManager();
         AuthorManager author = new AuthorManager();
+
+        [AllowAnonymous]
         public PartialViewResult AuthorAbout(int id)
         {
             var authorDetails = blog.GetBlogByID(id);
             return PartialView(authorDetails);
         }
+
+        [AllowAnonymous]
         public PartialViewResult AuthorPopularPost(int id)
         {
             var authorId = blog.GetAll().Where(x => x.BlogID == id).Select(y => y.AuthorID).FirstOrDefault();
             var authorBlogs = blog.GetBlogByAuthorID(authorId);
             return PartialView(authorBlogs);
         }
+
 
         public ActionResult AuthorList()
         {

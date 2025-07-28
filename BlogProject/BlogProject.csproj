@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SubscribeMailController.cs" />
@@ -2436,6 +2437,14 @@
     <Content Include="Report-Login-Free\fonts\fontawesome-webfont.woff" />
     <Content Include="Report-Login-Free\fonts\fontawesome-webfont.woff2" />
     <Content Include="Report-Login-Free\fonts\FontAwesome.otf" />
+    <Content Include="weberror\css\font-awesome.min.css" />
+    <Content Include="weberror\css\popuo-box.css" />
+    <Content Include="weberror\css\style.css" />
+    <Content Include="weberror\images\b8.jpg" />
+    <Content Include="weberror\index.html" />
+    <Content Include="weberror\js\jquery-2.2.3.min.js" />
+    <Content Include="weberror\js\jquery.magnific-popup.js" />
+    <Content Include="weberror\w3layouts-License.txt" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -2502,6 +2511,15 @@
     <Content Include="Views\Login\AuthorLogin.cshtml" />
     <Content Include="Views\User\Partial1.cshtml" />
     <Content Include="Views\User\BlogList.cshtml" />
+    <Content Include="Views\User\UpdateBlog.cshtml" />
+    <Content Include="Views\User\AddNewBlog.cshtml" />
+    <Content Include="Views\Error\Page404.cshtml" />
+    <Content Include="weberror\fonts\fontawesome-webfont.eot" />
+    <Content Include="weberror\fonts\fontawesome-webfont.ttf" />
+    <Content Include="weberror\fonts\fontawesome-webfont.woff" />
+    <Content Include="weberror\fonts\fontawesome-webfont.woff2" />
+    <Content Include="weberror\fonts\FontAwesome.otf" />
+    <Content Include="Views\Login\AdminLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

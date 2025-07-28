@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BlogProject.Controllers
 {
+    [AllowAnonymous]
     public class SubscribeMailController : Controller
     {
         // GET: SubscribeMail

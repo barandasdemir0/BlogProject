@@ -3,7 +3,6 @@
     Layout = null;
 }
 
-
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -39,16 +38,16 @@ Author URL: http://w3layouts.com
                 <div class="main-hotair">
                     <div class="content-wthree">
                         <h2>Giriş Yap</h2>
-                        @using (Html.BeginForm("AuthorLogin", "Login", FormMethod.Post))
+                        @using (Html.BeginForm("AdminLogin", "Login", FormMethod.Post))
                         {
-                            <input type="text" class="text" name="AuthorMail" placeholder="Mail Adresi" required="" autofocus>
+                            <input type="text" class="text" name="Username" placeholder="Kullanıcı adı" required="" autofocus>
                             <input type="password" class="password" name="Password" placeholder="Şifre" required="" autofocus>
                             <button class="btn" type="submit">Giriş Yap</button>
 
                         }
 
 
-                        <p> <a href="/Login/AdminLogin/"> Admin Blog Giriş</a></p>
+                       
 
                     </div>
                     <div class="w3l_form align-self">

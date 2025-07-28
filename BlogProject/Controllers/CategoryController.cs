@@ -19,6 +19,7 @@ namespace BlogProject.Controllers
             return View(categoryValues);
         }
 
+        [AllowAnonymous]
         public PartialViewResult BlogDetailsCategoryList()
         {
             var categoryValues = categoryManager.GettAll().Take(5);

@@ -2,15 +2,107 @@
 @{
     ViewBag.Title = "BlogList";
     Layout = "~/Views/Shared/_AuthorLayout.cshtml";
+
+    string color = "";
+    string durum="";
 }
 
-<h2>BlogList</h2>
+<!DOCTYPE html>
+<html>
+<body class="hold-transition sidebar-mini">
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Blog Listem</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover table-bordered text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 15%">Kategori</th>
+                            <th style="width: 25%">Kategori Başlığı</th>
+                            <th style="width: 20%">Puan</th>
+                            <th style="width: 20%">Durum</th>
+                            <th style="width: 20%">İşlemler</th>
+                        </tr>
+                    </thead>
 
-<table>
-    <tr><th>ıd</th></tr>
-    @foreach (var item in Model)
-    {
-        <tr><td>@item.BlogID</td></tr>
-    }
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Category.CategoryName</td>
 
-</table>
+                                <td class="text-start">
+                                    <span class="fw-bold text-primary">@item.BlogTitle</span><br />
+                                    <small class="text-muted">Puan: @item.BlogRating</small>
+                                </td>
+
+                                <td>
+                                    @if (item.BlogRating >= 85)
+                                    {
+                                        color = "progress-bar bg-success";
+                                        durum = "Çok iyi";
+                                    }
+                                    @if (item.BlogRating >= 50 && item.BlogRating <= 84)
+                                    {
+                                        color = "progress-bar bg-warning";
+                                        durum = "Ortalama";
+                                    }
+                                    @if (item.BlogRating >= 0 && item.BlogRating <= 49)
+                                    {
+                                        color = "progress-bar bg-danger";
+                                        durum = "Berbat";
+                                    }
+
+
+
+
+
+                                    <div class="progress" style="height: 12px;">
+                                        <div class="@color" role="progressbar"
+                                             style="width: @item.BlogRating%"
+                                             aria-valuenow="@item.BlogRating"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <small class="text-muted"> Aldığı Puan : @item.BlogRating%</small>
+                                </td>
+
+                                <td>
+                                    <span class="@color">@durum</span>
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-sm btn-outline-info me-2" href="/User/UpdateBlog/@item.BlogID">
+                                        <i class="fas fa-edit me-1"></i> Düzenle
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-danger" href="/User/DeleteBlog/@item.BlogID">
+                                        <i class="fas fa-trash-alt me-1"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+            <br />
+            <a class="btn btn-sm btn-outline-primary" href="/User/AddNewBlog/">
+                <i class="fas fa-signal"></i> Ekle
+            </a>
+        </div>
+    </section>
+</body>
+</html>
