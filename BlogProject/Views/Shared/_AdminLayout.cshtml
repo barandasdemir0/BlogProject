@@ -31,7 +31,7 @@
                         <img src="~/AdminLTE-3.0.4/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Hoşgeldin</a>
+                        <a href="#" class="d-block">@HttpContext.Current.User.Identity.Name</a>
                     </div>
                 </div>
                 <nav class="mt-2">

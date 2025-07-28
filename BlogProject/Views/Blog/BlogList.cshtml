@@ -28,10 +28,14 @@
                                 <span>&nbsp;-&nbsp; @item.BlogDate.ToString("dd-MMM-yyyy")</span>
                                 @*BÖYLE YAPARAKDA AY DEĞERİNİ DÜZGÜNCE ALIYORUZ*@
                             </div>
-
+                            <p>blog puanı :@item.BlogRating </p>
                             <p>@(item.BlogContent.Length>200 ? item.BlogContent.Substring(0,200)+"...":item.BlogContent)</p>
                             @*buranın amacı 0 ile 200. karakterde boşluğa kadar al ve sonuna ... ekle ki garip şeyler olmasın elma yazacakken el yazmasın*@
+
+
+
                             <p><a href="/Blog/BlogDetails/@item.BlogID/">Daha Fazla</a></p>
+
                         </div>
                     </div>
                 </div>

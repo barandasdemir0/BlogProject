@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,48 @@ namespace BlogProject.Controllers
             return View(categoryValues);
         }
 
+        [HttpGet]
+        public ActionResult AdminCategoryAdd()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdminCategoryAdd(Category category)
+        {
+            categoryManager.CategoryAddBL(category);
+            return RedirectToAction("AdminCategoryList");
+        }
+
+
+        [HttpGet]
+        public ActionResult CategoryEdit(int id)
+        {
+            var bilgiler = categoryManager.FindCategory(id);
+            return View(bilgiler);
+        }
+
+        [HttpPost]
+        public ActionResult CategoryEdit(Category category)
+        {
+
+            categoryManager.CategoryUpdateBL(category);
+            return RedirectToAction("AdminCategoryList");
+
+        }
+
+
+        public ActionResult StatusChangeToFalse(int id)
+        {
+            categoryManager.ChangeCommentStatusToFalse(id);
+            return RedirectToAction("AdminCategoryList");
+        }
+
+        public ActionResult StatusChangeToTrue(int id)
+        {
+            categoryManager.ChangeCommentStatusToTrue(id);
+            return RedirectToAction("AdminCategoryList");
+        }
 
     }
 }

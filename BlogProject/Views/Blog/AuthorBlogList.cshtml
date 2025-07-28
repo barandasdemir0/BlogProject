@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<EntityLayer.Concrete.Blog>
 @{
-    ViewBag.Title = "BlogList";
-    Layout = "~/Views/Shared/_AuthorLayout.cshtml";
-
+    ViewBag.Title = "AuthorBlogList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string color = "";
-    string durum="";
-    int puan = 1;
+    string durum = "";
 }
 
 <!DOCTYPE html>
@@ -44,25 +42,21 @@
 
                                 <td class="text-start">
                                     <span class="fw-bold text-primary">@item.BlogTitle</span><br />
-
-                                    <small class="text-muted">Puan: @puan</small>
+                                    <small class="text-muted">Puan: @item.BlogRating</small>
                                 </td>
-                                <td>
-                                    @{ puan = 1 * item.BlogRating;} @puan
 
-                                </td>
                                 <td>
-                                    @if (puan >= 85)
+                                    @if (item.BlogRating >= 85)
                                     {
                                         color = "progress-bar bg-success";
                                         durum = "Çok iyi";
                                     }
-                                    @if (puan >= 50 && puan <= 84)
+                                    @if (item.BlogRating >= 50 && item.BlogRating <= 84)
                                     {
                                         color = "progress-bar bg-warning";
                                         durum = "Ortalama";
                                     }
-                                    @if (puan >= 0 && puan <= 49)
+                                    @if (item.BlogRating >= 0 && item.BlogRating <= 49)
                                     {
                                         color = "progress-bar bg-danger";
                                         durum = "Berbat";
@@ -74,13 +68,13 @@
 
                                     <div class="progress" style="height: 12px;">
                                         <div class="@color" role="progressbar"
-                                             style="width: @puan %"
+                                             style="width: @item.BlogRating%"
                                              aria-valuenow="@item.BlogRating"
                                              aria-valuemin="0"
                                              aria-valuemax="100">
                                         </div>
                                     </div>
-                                    <small class="text-muted"> Aldığı Puan : @puan%</small>
+                                    <small class="text-muted"> Aldığı Puan : @item.BlogRating%</small>
                                 </td>
 
                                 <td>
@@ -88,10 +82,10 @@
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-sm btn-outline-info me-2" href="/User/UpdateBlog/@item.BlogID">
+                                    <a class="btn btn-sm btn-outline-info me-2" href="/Blog/UpdateBlog/@item.BlogID">
                                         <i class="fas fa-edit me-1"></i> Düzenle
                                     </a>
-                                    <a class="btn btn-sm btn-outline-danger" href="/User/DeleteBlog/@item.BlogID">
+                                    <a class="btn btn-sm btn-outline-danger" href="/Blog/DeleteBlog/@item.BlogID">
                                         <i class="fas fa-trash-alt me-1"></i> Sil
                                     </a>
                                 </td>
@@ -104,10 +98,11 @@
 
             </div>
             <br />
-            <a class="btn btn-sm btn-outline-primary" href="/User/AddNewBlog/">
+            <a class="btn btn-sm btn-outline-primary" href="/Blog/AddNewBlog/">
                 <i class="fas fa-signal"></i> Ekle
             </a>
         </div>
     </section>
 </body>
 </html>
+

@@ -26,7 +26,7 @@ namespace BusinessLayer.Concrete
 
         public int CommentAdd(Comment c)
         {
-            if (c.CommentText.Length<=4 || c.CommentText.Length>=301 || c.Username == null || c.Mail== null)
+            if (c.CommentText=="" ||  c.Username == "" || c.Mail == "")
             {
                 return -1;
             }

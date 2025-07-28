@@ -32,6 +32,7 @@ namespace BlogProject.Controllers
         public PartialViewResult LeaveComment(Comment c)
         {
             c.CommentDate = Convert.ToDateTime( DateTime.Now.ToShortDateString());
+            c.CommentStatus = true;
             comment.CommentAdd(c);
             return PartialView();
         }

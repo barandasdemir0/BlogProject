@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Profile;
 
 namespace BlogProject.Controllers
 {
@@ -15,6 +16,7 @@ namespace BlogProject.Controllers
         // GET: Blog
 
         BlogManager blogManager = new BlogManager();
+        //AuthorManager profileManager = new AuthorManager();
         Context context = new Context();
 
 
@@ -313,6 +315,20 @@ namespace BlogProject.Controllers
 
         #endregion
 
+
+
+
+
+
+
+
+        public ActionResult AuthorBlogList(int id)
+        {
+           
+        
+            var blogs = blogManager.GetBlogByAuthorID(id);
+            return View(blogs);
+        }
 
     }
 }
