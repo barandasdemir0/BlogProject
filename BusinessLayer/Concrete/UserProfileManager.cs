@@ -22,7 +22,7 @@ namespace BusinessLayer.Concrete
             return repoBlog.List(x => x.AuthorID == id);
         }
 
-        public int AuthorUpdateBL(Author a)
+        public void AuthorUpdateBL(Author a)
         {
             Author author = repoAuthor.Find(x => x.AuthorID == a.AuthorID);
             author.AuthorName = a.AuthorName;
@@ -33,7 +33,7 @@ namespace BusinessLayer.Concrete
             author.AuthorMail = a.AuthorMail;
             author.Password = a.Password;
             author.PhoneNumber = a.PhoneNumber;
-            return repoAuthor.Update(author);
+             repoAuthor.Update(author);
         }
 
     }

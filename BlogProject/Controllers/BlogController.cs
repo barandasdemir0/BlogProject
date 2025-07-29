@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using PagedList;
 using System;
@@ -15,7 +16,7 @@ namespace BlogProject.Controllers
     {
         // GET: Blog
 
-        BlogManager blogManager = new BlogManager();
+        BlogManager blogManager = new BlogManager(new EfBlogDal());
         //AuthorManager profileManager = new AuthorManager();
         Context context = new Context();
 
@@ -31,7 +32,7 @@ namespace BlogProject.Controllers
         public PartialViewResult BlogList(int paged=1)
         {
 
-            var blogList = blogManager.GetAll().OrderByDescending(x=>x.BlogID).ToPagedList(paged,6);
+            var blogList = blogManager.GetList().OrderByDescending(x=>x.BlogID).ToPagedList(paged,6);
             return PartialView(blogList);
         }
 
@@ -40,7 +41,7 @@ namespace BlogProject.Controllers
         public PartialViewResult FeaturedPosts()
         {
 
-            var todayPost = blogManager.GetAll().Where(x => x.CategoryID == 1).Select(y => new
+            var todayPost = blogManager.GetList().Where(x => x.CategoryID == 1).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -55,7 +56,7 @@ namespace BlogProject.Controllers
             ViewBag.todayPostid = todayPost.id;
 
 
-            var techPost = blogManager.GetAll().Where(x => x.CategoryID == 2).Select(y => new
+            var techPost = blogManager.GetList().Where(x => x.CategoryID == 2).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -69,7 +70,7 @@ namespace BlogProject.Controllers
             ViewBag.techPostCategory = techPost.category;
             ViewBag.techPostid = techPost.id;
 
-            var artificalPost = blogManager.GetAll().Where(x => x.CategoryID == 3).Select(y => new
+            var artificalPost = blogManager.GetList().Where(x => x.CategoryID == 3).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -84,7 +85,7 @@ namespace BlogProject.Controllers
             ViewBag.artificalPostid = artificalPost.id;
 
 
-            var education = blogManager.GetAll().Where(x => x.CategoryID == 5).Select(y => new
+            var education = blogManager.GetList().Where(x => x.CategoryID == 5).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -99,7 +100,7 @@ namespace BlogProject.Controllers
             ViewBag.educationPostid = education.id;
 
 
-            var career = blogManager.GetAll().Where(x => x.CategoryID == 4).Select(y => new
+            var career = blogManager.GetList().Where(x => x.CategoryID == 4).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -125,7 +126,7 @@ namespace BlogProject.Controllers
         [AllowAnonymous]
         public PartialViewResult OtherFeaturedPosts()
         {
-            var techPost = blogManager.GetAll().Where(x => x.CategoryID == 2).Select(y => new
+            var techPost = blogManager.GetList().Where(x => x.CategoryID == 2).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -137,7 +138,7 @@ namespace BlogProject.Controllers
             ViewBag.techPostImage = techPost.image;
             ViewBag.techPostCategory = techPost.category;
 
-            var artificalPost = blogManager.GetAll().Where(x => x.CategoryID == 3).Select(y => new
+            var artificalPost = blogManager.GetList().Where(x => x.CategoryID == 3).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -150,7 +151,7 @@ namespace BlogProject.Controllers
             ViewBag.artificalPostCategory = artificalPost.category;
 
 
-            var education = blogManager.GetAll().Where(x => x.CategoryID == 5).Select(y => new
+            var education = blogManager.GetList().Where(x => x.CategoryID == 5).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -163,7 +164,7 @@ namespace BlogProject.Controllers
             ViewBag.educationPostCategory = education.category;
 
 
-            var career = blogManager.GetAll().Where(x => x.CategoryID == 4).Select(y => new
+            var career = blogManager.GetList().Where(x => x.CategoryID == 4).Select(y => new
             {
                 name = y.BlogTitle,
                 date = y.BlogDate.ToString("dd-MMM-yyyy"),
@@ -217,14 +218,14 @@ namespace BlogProject.Controllers
 
         public ActionResult AdminBlogList()
         {
-            var blogList = blogManager.GetAll();
+            var blogList = blogManager.GetList();
             return View(blogList);
         }
 
 
         public ActionResult AdminBlogList2()
         {
-            var blogList = blogManager.GetAll();
+            var blogList = blogManager.GetList();
             return View(blogList);
         }
 
@@ -253,14 +254,16 @@ namespace BlogProject.Controllers
         public ActionResult AddNewBlog(Blog blog)
         {
             blog.BlogDate = Convert.ToDateTime(DateTime.Now);
-            blogManager.BlogAddBL(blog);
+            blogManager.BlogAdd(blog);
             return RedirectToAction("AdminBlogList2");
         }
 
 
         public ActionResult DeleteBlog(int id)
         {
-            blogManager.DeleteBlogBL(id);
+
+            var bilgiler = blogManager.GetById(id);
+            blogManager.BlogDelete(bilgiler);
             return RedirectToAction("AdminBlogList2");
         }
 
@@ -271,7 +274,7 @@ namespace BlogProject.Controllers
         public ActionResult UpdateBlog(int id)
         {
 
-            var bilgiler = blogManager.FindBlog(id);
+            var bilgiler = blogManager.GetById(id);
             var categoryList = context.Categories.Select(x => new SelectListItem
             {
                 Value = x.CategoryID.ToString(),
@@ -295,14 +298,14 @@ namespace BlogProject.Controllers
         public ActionResult UpdateBlog(Blog blog)
         {
             blog.BlogDate = Convert.ToDateTime(DateTime.Now);
-            blogManager.BlogUpdateBL(blog);
+            blogManager.BlogUpdate(blog);
             return RedirectToAction("AdminBlogList2");
         }
 
 
         public ActionResult GetCommentByBlog(int id)
         {
-            CommentManager comment = new CommentManager();
+            CommentManager comment = new CommentManager(new EfCommentDal());
             var commentList = comment.CommentByBlog(id);
             return View(commentList);
         }

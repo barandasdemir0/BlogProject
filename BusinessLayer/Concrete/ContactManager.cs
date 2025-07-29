@@ -12,13 +12,13 @@ namespace BusinessLayer.Concrete
     {
         Repository<Contact> repoContact = new Repository<Contact>();
         
-        public int BlContactAdd(Contact c)
+        public void BlContactAdd(Contact c)
         {
-            if (c.Mail == "" || c.Message == "" || c.Name == "" || c.Subject == "" || c.Surname == "")
-            {
-                return -1;
-            }
-            return repoContact.Insert(c);
+            //if (c.Mail == "" || c.Message == "" || c.Name == "" || c.Subject == "" || c.Surname == "")
+            //{
+            //    return -1;
+            //}
+             repoContact.Insert(c);
         }
 
         public List<Contact> GetAll()

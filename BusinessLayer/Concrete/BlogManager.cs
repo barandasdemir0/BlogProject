@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,14 +10,21 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class BlogManager
+    public class BlogManager:IBlogService
     {
+        IBlogDal _blogDal;
+
         Repository<Blog> repoBlog = new Repository<Blog>();
 
-        public List<Blog> GetAll()
+        public BlogManager(IBlogDal blogDal)
         {
-            return repoBlog.List();
+            _blogDal = blogDal;
         }
+
+        //public List<Blog> GetAll()
+        //{
+        //    return repoBlog.List();
+        //}
         public List<Blog> GetBlogByID(int id)
         {
             return repoBlog.List(x => x.BlogID == id);
@@ -29,45 +38,64 @@ namespace BusinessLayer.Concrete
             return repoBlog.List(x => x.CategoryID == id);
         }
 
-        public int BlogAddBL(Blog blog)
+        //public void BlogAddBL(Blog blog)
+        //{
+        //    //if (blog.BlogTitle == null || blog.BlogImage == null || blog.BlogContent == null)
+        //    //{
+        //    //    return -1;
+        //    //}
+        //     repoBlog.Insert(blog);
+        //}
+
+
+
+        //public void DeleteBlogBL(int p)
+        //{
+        //    Blog blog = repoBlog.Find(x => x.BlogID == p);
+        //     repoBlog.Delete(blog);
+        //}
+
+
+        //public Blog FindBlog(int id)
+        //{
+        //    return repoBlog.Find(x => x.BlogID == id);
+        //}
+
+
+        //public void BlogUpdateBL(Blog p)
+        //{
+        //     Blog blog = repoBlog.Find(x => x.BlogID == p.BlogID);
+        //    blog.BlogTitle = p.BlogTitle;
+        //    blog.BlogImage = p.BlogImage;
+        //    blog.CategoryID = p.CategoryID;
+        //    blog.AuthorID = p.AuthorID;
+        //    blog.BlogContent = p.BlogContent;
+        //     repoBlog.Update(blog);
+        //}
+
+        public List<Blog> GetList()
         {
-            if (blog.BlogTitle == null || blog.BlogImage == null || blog.BlogContent == null)
-            {
-                return -1;
-            }
-            return repoBlog.Insert(blog);
+            return _blogDal.List();
         }
 
-
-
-        public int DeleteBlogBL(int p)
+        public void BlogAdd(Blog blog)
         {
-            Blog blog = repoBlog.Find(x => x.BlogID == p);
-            return repoBlog.Delete(blog);
+            _blogDal.Insert(blog);
         }
 
-
-        public Blog FindBlog(int id)
+        public Blog GetById(int id)
         {
-            return repoBlog.Find(x => x.BlogID == id);
+            return _blogDal.GetByID(id);
         }
 
-
-        public int BlogUpdateBL(Blog p)
+        public void BlogDelete(Blog blog)
         {
-             Blog blog = repoBlog.Find(x => x.BlogID == p.BlogID);
-            blog.BlogTitle = p.BlogTitle;
-            blog.BlogImage = p.BlogImage;
-            blog.CategoryID = p.CategoryID;
-            blog.AuthorID = p.AuthorID;
-            blog.BlogContent = p.BlogContent;
-            return repoBlog.Update(blog);
+            _blogDal.Delete(blog);
         }
 
-
-
-
-
-      
+        public void BlogUpdate(Blog blog)
+        {
+            _blogDal.Update(blog);
+        }
     }
 }

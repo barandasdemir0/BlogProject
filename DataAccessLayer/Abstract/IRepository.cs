@@ -12,9 +12,9 @@ namespace DataAccessLayer.Abstract
 
         //yapılacak temel crud işlemleri oluşturduk
         List<T> List();
-        int Insert(T p);
-        int Update(T p);
-        int Delete(T p);
+        void Insert(T p);
+        void Update(T p);
+        void Delete(T p);
         T GetByID(int id);
 
         List<T> List(Expression<Func<T, bool>> filter);

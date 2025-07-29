@@ -1,6 +1,9 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,7 @@ namespace BlogProject.Controllers
     public class CategoryController : Controller
     {
         // GET: Category
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
         Context context = new Context();
         public ActionResult Index()
         {
@@ -26,7 +29,7 @@ namespace BlogProject.Controllers
             var categoryValues = categoryManager.GettAll().Take(5);
             return PartialView(categoryValues);
         }
-        
+
         public ActionResult AdminCategoryList()
         {
             var categoryValues = categoryManager.GettAll();
@@ -42,15 +45,31 @@ namespace BlogProject.Controllers
         [HttpPost]
         public ActionResult AdminCategoryAdd(Category category)
         {
-            categoryManager.CategoryAddBL(category);
-            return RedirectToAction("AdminCategoryList");
+            CategoryValidator categoryValidator = new CategoryValidator();
+            ValidationResult results = categoryValidator.Validate(category);
+            if (results.IsValid)
+            {
+                categoryManager.CategoryAdd(category);
+                return RedirectToAction("AdminCategoryList");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+
+            }
+            return View();
+
+
         }
 
 
         [HttpGet]
         public ActionResult CategoryEdit(int id)
         {
-            var bilgiler = categoryManager.FindCategory(id);
+            var bilgiler = categoryManager.GetById(id);
             return View(bilgiler);
         }
 
@@ -58,8 +77,23 @@ namespace BlogProject.Controllers
         public ActionResult CategoryEdit(Category category)
         {
 
-            categoryManager.CategoryUpdateBL(category);
-            return RedirectToAction("AdminCategoryList");
+            CategoryValidator categoryValidator = new CategoryValidator();
+            ValidationResult results = categoryValidator.Validate(category);
+            if (results.IsValid)
+            {
+                categoryManager.CategoryUpdate(category);
+                return RedirectToAction("AdminCategoryList");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+
+            }
+
+            return View();
 
         }
 

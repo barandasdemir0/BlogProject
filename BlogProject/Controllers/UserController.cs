@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BlogProject.Controllers
     {
         // GET: User
         UserProfileManager profileManager = new UserProfileManager();
-        BlogManager blogManager = new BlogManager();
+        BlogManager blogManager = new BlogManager(new EfBlogDal());
         Context context = new Context();
         public ActionResult Index()
         {
@@ -80,14 +81,15 @@ namespace BlogProject.Controllers
         public ActionResult AddNewBlog(Blog blog)
         {
             blog.BlogDate = Convert.ToDateTime(DateTime.Now);
-            blogManager.BlogAddBL(blog);
+            blogManager.BlogAdd(blog);
             return RedirectToAction("BlogList");
         }
 
 
         public ActionResult DeleteBlog(int id)
         {
-            blogManager.DeleteBlogBL(id);
+            var bilgiler = blogManager.GetById(id);
+            blogManager.BlogDelete(bilgiler);
             return RedirectToAction("BlogList");
         }
 
@@ -96,7 +98,7 @@ namespace BlogProject.Controllers
         public ActionResult UpdateBlog(int id)
         {
 
-            var bilgiler = blogManager.FindBlog(id);
+            var bilgiler = blogManager.GetById(id);
             var categoryList = context.Categories.Select(x => new SelectListItem
             {
                 Value = x.CategoryID.ToString(),
@@ -127,7 +129,7 @@ namespace BlogProject.Controllers
         public ActionResult UpdateBlog(Blog blog)
         {
             blog.BlogDate = Convert.ToDateTime(DateTime.Now);
-            blogManager.BlogUpdateBL(blog);
+            blogManager.BlogUpdate(blog);
             return RedirectToAction("BlogList");
         }
 

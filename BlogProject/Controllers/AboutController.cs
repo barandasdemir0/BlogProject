@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using PagedList;
 using System;
@@ -14,34 +15,34 @@ namespace BlogProject.Controllers
     {
         // GET: About
 
-        AuthorManager author = new AuthorManager();
-        AboutManager about = new AboutManager();
+        AuthorManager author = new AuthorManager(new EfAuthorDal());
+        AboutManager about = new AboutManager(new EfAboutDal());
         public ActionResult Index()
         {
-            var aboutContent = about.GetAll();
+            var aboutContent = about.GetList();
             return View(aboutContent);
         }
 
         public PartialViewResult Footer()
         {
-            var aboutContentList = about.GetAll().Take(1);
+            var aboutContentList = about.GetList().Take(1);
             return PartialView(aboutContentList);
         }
         public PartialViewResult MeetTheTeam()
         {
-            var aboutMeetTeam = author.GetAll().Take(6);
+            var aboutMeetTeam = author.GetList().Take(6);
             return PartialView(aboutMeetTeam);
         }
 
         public ActionResult UpdateAboutList()
         {
-            var abaoutList = about.GetAll();
+            var abaoutList = about.GetList();
             return View(abaoutList);
         }
 
         public ActionResult UpdateAbout(About a)
         {
-            about.AboutUpdateBL(a);
+            about.AboutUpdate(a);
             return RedirectToAction("UpdateAboutList");
         }
 

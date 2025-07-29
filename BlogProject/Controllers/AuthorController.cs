@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace BlogProject.Controllers
     {
         // GET: Author
 
-        BlogManager blog = new BlogManager();
-        AuthorManager author = new AuthorManager();
+        BlogManager blog = new BlogManager(new EfBlogDal());
+        AuthorManager author = new AuthorManager(new EfAuthorDal());
 
         [AllowAnonymous]
         public PartialViewResult AuthorAbout(int id)
@@ -26,7 +27,7 @@ namespace BlogProject.Controllers
         [AllowAnonymous]
         public PartialViewResult AuthorPopularPost(int id)
         {
-            var authorId = blog.GetAll().Where(x => x.BlogID == id).Select(y => y.AuthorID).FirstOrDefault();
+            var authorId = blog.GetList().Where(x => x.BlogID == id).Select(y => y.AuthorID).FirstOrDefault();
             var authorBlogs = blog.GetBlogByAuthorID(authorId);
             return PartialView(authorBlogs);
         }
@@ -34,7 +35,7 @@ namespace BlogProject.Controllers
 
         public ActionResult AuthorList()
         {
-           var values = author.GetAll();
+           var values = author.GetList();
             return View(values);
         }
 
@@ -48,14 +49,14 @@ namespace BlogProject.Controllers
         public ActionResult AddAuthor(Author authorAdd)
         {
             
-            author.AuthorAddBL(authorAdd);
+            author.AuthorAdd(authorAdd);
             return RedirectToAction("AuthorList");
         
         }
         [HttpGet]
         public ActionResult AuthorEdit(int id)
         {
-            var bilgiler = author.FindAuthor(id);
+            var bilgiler = author.GetById(id);
             return View(bilgiler);
         }
 
@@ -63,7 +64,7 @@ namespace BlogProject.Controllers
         public ActionResult AuthorEdit(Author authorUpdate)
         {
 
-            author.AuthorUpdateBL(authorUpdate);
+            author.AuthorUpdate(authorUpdate);
             return RedirectToAction("AuthorList");
 
         }
