@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BlogProject.Controllers
     public class ContactController : Controller
     {
         // GET: Contact
-        ContactManager contact = new ContactManager();
+        ContactManager contact = new ContactManager(new EfContactDal());
         Context context = new Context();
 
 
@@ -44,13 +45,13 @@ namespace BlogProject.Controllers
 
         public ActionResult SendBox()
         {
-            var messageList = contact.GetAll();
+            var messageList = contact.GetList();
             ViewBag.veri = context.Contacts.Count();
             return View(messageList);
         }
         public ActionResult MessageDetails(int id)
         {
-            Contact c = contact.GetContactDetails(id);
+            Contact c = contact.GetById(id);
             ViewBag.veri = context.Contacts.Count();
             return View(c);
         }
